@@ -1,33 +1,49 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from "react";
+class Car extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      brand: "Ford",
+      model: "Mustang",
+      color: "red",
+      year: 1964
+    };
+  }
 
-function App() {
-  return (
-    <>
+  changeColor = (rengg) => {
+    setTimeout(() => {
+      this.setState({color: rengg})
+    }, 2000)
+  }
+
+  shouldComponentUpdate = () => {
+    return true;
+  }
+  componentDidUpdate() {
+    document.getElementById("mypara").innerHTML =
+    "The updated car is " + this.state.color;
+  }
+
+  render() {
+    return (
       <div>
-        <a>
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a>
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
+        <h1>My {this.state.brand}</h1>
         <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
+          It is a {this.state.color} {" "}
+          {this.state.model} {" "}
+          from {this.state.year}.
+        </p>
+        <button
+          type="button"
+          onClick={() => this.changeColor("blue")} // Pass a function reference
+        >
+          Change color
+        </button>
+        <p id="mypara">
         </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    );
+  }
 }
 
-export default App
+export default Car;
